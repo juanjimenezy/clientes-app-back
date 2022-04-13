@@ -17,6 +17,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="JJ_CLIENTES")
 public class Cliente implements Serializable{
@@ -42,14 +44,18 @@ public class Cliente implements Serializable{
 	private String email;
 	
 //	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@Column(name="CREATE_AT")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
 	
-	@PrePersist
-	public void prePersist() {
-		this.createAt = new Date();
-	}
+	@Column(name="FOTO")
+	private String foto;
+	
+//	@PrePersist
+//	public void prePersist() {
+//		this.createAt = new Date();
+//	}
 
 	public Long getId() {
 		return id;
@@ -91,7 +97,21 @@ public class Cliente implements Serializable{
 		this.createAt = createAt;
 	}
 
-	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+
 	/**
 	 * 
 	 */
