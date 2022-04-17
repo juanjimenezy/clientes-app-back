@@ -140,6 +140,7 @@ public class ClienteRestController {
 			clienteActual.setNombre(cliente.getNombre());
 			clienteActual.setApellido(cliente.getApellido());
 			clienteActual.setEmail(cliente.getEmail());
+			clienteActual.setRegion(cliente.getRegion());
 			
 			if(clienteActual == null) {
 				response.put("mensaje", "Cliente no existe");
