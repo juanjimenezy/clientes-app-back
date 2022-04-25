@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,6 +75,9 @@ public class ClienteRestController {
 		return new ResponseEntity<Page<Cliente>>(clientes,HttpStatus.OK);
 	}
 
+	
+	
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
@@ -119,7 +123,8 @@ public class ClienteRestController {
 		}
 		return new ResponseEntity<Cliente>(clienteNew,HttpStatus.CREATED);
 	}
-
+	
+	@Secured({"ROLE_ADMIN"})
 	@SuppressWarnings("unused")
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Cliente cliente, BindingResult result, @PathVariable Long id) {
@@ -159,6 +164,7 @@ public class ClienteRestController {
 		return new ResponseEntity<Cliente>(clienteSave,HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/clientes/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
@@ -212,7 +218,7 @@ public class ClienteRestController {
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
-	
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/clientes/upload")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
 		Map<String, Object> response = new HashMap<>();
